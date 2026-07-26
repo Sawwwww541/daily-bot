@@ -6,7 +6,6 @@ from openai import OpenAI
 # ====== 请替换以下配置（或使用环境变量） ======
 DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', 'null')
 FEISHU_WEBHOOK = os.environ.get('FEISHU_WEBHOOK', 'null')
-MY_NAME = os.environ.get('MY_NAME', 'null')
 # =============================================
 
 
@@ -81,7 +80,7 @@ def send_to_feishu(raw_news, summary):
     """3. 推送到飞书：纯文本格式，使用序号和emoji排版"""
     today = datetime.now().strftime("%Y年%m月%d日")
     full_content = (
-        f"📰早上好 {MY_NAME}，这是 {today} 的早报\n\n"
+        f"☝🏻️🤓早上好 义人，这是 {today} 的早报😘\n\n"
         f"【今日热点新闻】\n{raw_news}\n\n"
         f"----------\n\n"
         f"【AI申论素材总结】\n{summary}"
