@@ -6,6 +6,7 @@ from openai import OpenAI
 # ====== 请替换以下配置（或使用环境变量） ======
 DEEPSEEK_API_KEY = os.environ.get('DEEPSEEK_API_KEY', 'null')
 FEISHU_WEBHOOK = os.environ.get('FEISHU_WEBHOOK', 'null')
+MY_NAME = os.environ.get('MY_NAME', 'null')
 # =============================================
 
 
@@ -54,7 +55,7 @@ def ai_summarize(news_text):
       主题一，主题二，主题三
     
     【重要】使用中文序号（一、二、三）和数字序号（1. 2. 3.），
-    配合换行和缩进来区分层级。不要使用任何 Markdown 标记。可以适当使用emoji来增强可读性，但不要过度使用。
+    配合换行和缩进来区分层级。适当使用emoji来增强可读性。不要使用任何 Markdown 标记。
     
     新闻：
     {news_text}
@@ -64,7 +65,7 @@ def ai_summarize(news_text):
         response = client.chat.completions.create(
             model="deepseek-v4-pro",
             messages=[
-                {"role": "system", "content": "你是一位资深的申论辅导老师，擅长将时事热点转化为备考素材。输出时必须严格按照用户指定的格式：大标题用“一、二、三”，子标题用“1. 2. 3.”，不用Markdown。适当使用emoji来增强可读性，但不要过度使用。"},
+                {"role": "system", "content": "你是一位资深的申论辅导老师，擅长将时事热点转化为备考素材。输出时必须严格按照用户指定的格式：大标题用“一、二、三”，子标题用“1. 2. 3.”，适当使用emoji来增强可读性，不用Markdown。"},
                 {"role": "user", "content": prompt}
             ],
             stream=False,
@@ -80,7 +81,7 @@ def send_to_feishu(raw_news, summary):
     """3. 推送到飞书：纯文本格式，使用序号和emoji排版"""
     today = datetime.now().strftime("%Y年%m月%d日")
     full_content = (
-        f"📰 {today} 早报\n\n"
+        f"📰早上好 {MY_NAME}，这是 {today} 的早报\n\n"
         f"【今日热点新闻】\n{raw_news}\n\n"
         f"----------\n\n"
         f"【AI申论素材总结】\n{summary}"
